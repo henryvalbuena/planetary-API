@@ -9,11 +9,11 @@ import os
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'planets.db')
-app.config['JWT_SECRET_KEY'] = 'super-secret'
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['JWT_SECRET_KEY'] = os.environ['SECRET_KEY']
+app.config['MAIL_SERVER'] = os.environ['MAIL_SERVER']
 app.config['MAIL_USERNAME'] = os.environ['MAIL_USERNAME']
 app.config['MAIL_PASSWORD'] = os.environ['MAIL_PASSWORD']
-app.config['MAIL_PORT'] = 465
+app.config['MAIL_PORT'] = os.environ['MAIL_PORT']
 app.config['MAIL_USE_SSL'] = True
 
 db = SQLAlchemy(app)

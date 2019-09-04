@@ -4,69 +4,115 @@ List of known planets so far discovered
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+1. Clone or Pull the repo
+2. To use the **email** functionality you will need to create .env file and add the following environment variables
 
-Clone or Pull the repo and
+        MAIL_USERNAME=your_email_address
+        MAIL_PASSWORD=your_email_password
+        MAIL_PORT=your_email_provider_smtp_port
+        MAIL_SERVER=your_email_smpt_address
+
+3. To be able to use JWT for content management add the following enviroment variable to .env
+        
+        SECRET_KEY=your_secret_key
+
+4. Run the following shell command
+
+        ./build_docker.sh && ./run_docker.sh
+
+5. Open you browser and visit localhost:5000 or execute the following shell command to verify the app is running
+
+        curl localhost:5000
+
+You should received the message *Hello World*
+
+**NOTE:** if you are using Windows, consider executing point 4 using git bash
+
+### You may follow this instructions if you like to set up your own Flask and Python environment
+https://stackabuse.com/dockerizing-python-applications/
+
+### Docker CLI (which is done by the .sh scripts provided)
+
+1. Build the image with
+
+        docker build -t [img_name]
+Default image name *flask-web-app*
+
+2. To run the image
+
+        docker run --name [app_name] -v $PWD/src:/www/src -p 5000:5000 [img_name]
+Add a **-d** to run in the background
+
+Default app_name *flaskapp*
+
+3. Start the image
+
+        docker -i start [app_name]
+The **-i** indicates for interactive mode if needed for debugging
+
+4. Stop the image
+
+        docker stop [app_name]
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Just having Docker, because is more fun that way
+
+## How does it work
+
+### The following routes are available (to be updated)
 
 ```
-Give examples
+  GET /planets
+  PUT /add_planet
+  DELETE /delete_planet/<planet_id>
 ```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+### Example from GET /planets
+``` json
+  [
+  {
+    "distance": 100000000.0,
+    "home_star": "Golden Orb of Day",
+    "mass": 1.08e+25,
+    "planet_id": 1,
+    "planet_name": "Aiur",
+    "planet_type": "Class M",
+    "radius": 6636.0
+  },
+  {
+    "distance": 67240000.0,
+    "home_star": "Sol",
+    "mass": 4.867e+24,
+    "planet_id": 2,
+    "planet_name": "Venus",
+    "planet_type": "Class K",
+    "radius": 3760.0
+  }
+]
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+In progress
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+In progress
+
+## Enhancement
+1. Refactory
+2. Create modules
+3. Single responsitility implementation
+4. Update routes
+5. Middleware for content management
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+* [Python3](https://docs.python.org/3/) - Programming Language
+* [Docker](https://www.docker.com/products/docker-desktop) - Container
+* [Flask](https://palletsprojects.com/p/flask/) - Web Framework
+* [SQLAlchemy](https://www.sqlalchemy.org/) - SQL Toolkit and ORM
+* [JWT](https://jwt.io/) - Used to generate, check, validate user identity and content management
 
 ## Versioning
 
@@ -74,42 +120,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+This project is based on the course [Building RESTful APIs with Flask](https://www.linkedin.com/learning/building-restful-apis-with-flask/conclusion-3?autoplay=true&u=2169170) with customizations and modifications done by [Henry Valbuena](https://github.com/henryvalbuena). That's me :smile:
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
-
-
-## Docker Image Name
-flaskapp
-
-## Flask and Docker set-up
-https://stackabuse.com/dockerizing-python-applications/
-
-### This is for Docker CLI
-### Stepts
-1. Build the image with
-
-        docker build -t [name]
-
-2. To run the image
-
-        docker run --name flaskapp -v $PWD/src:/www/src -p 5000:5000 flask-web-app
-
-3. Start the image
-
-        docker -i start flask-web-app
-The `-i` indicates for interactive mode
-
-4. Stop the image
-
-        docker stop flask-web-app
